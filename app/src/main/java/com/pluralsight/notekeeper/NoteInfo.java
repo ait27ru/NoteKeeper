@@ -1,8 +1,5 @@
 package com.pluralsight.notekeeper;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 /**
  * Created by Jim.
  */
