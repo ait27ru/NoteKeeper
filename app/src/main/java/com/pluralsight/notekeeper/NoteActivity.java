@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import java.util.List;
 
 public class NoteActivity extends AppCompatActivity {
+    public static final String NOTE_INFO = "com.pluralsight.notekeeper.NOTE_INFO";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
