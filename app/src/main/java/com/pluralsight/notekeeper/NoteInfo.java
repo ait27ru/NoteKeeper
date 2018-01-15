@@ -21,9 +21,9 @@ public final class NoteInfo implements Parcelable {
     }
 
     private NoteInfo(Parcel source) {
-        mCourse = source.readParcelable(CourseInfo.class.getClassLoader());
         mTitle = source.readString();
         mText = source.readString();
+        mCourse = (CourseInfo) source.readValue(CourseInfo.class.getClassLoader());
     }
 
     public CourseInfo getCourse() {
@@ -81,9 +81,9 @@ public final class NoteInfo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(mCourse);
         dest.writeString(mTitle);
         dest.writeString(mText);
+        dest.writeValue(mCourse);
     }
 
     public static final Parcelable.Creator<NoteInfo> CREATOR =
