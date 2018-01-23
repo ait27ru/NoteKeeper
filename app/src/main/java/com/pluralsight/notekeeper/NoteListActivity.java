@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,12 +15,12 @@ import java.util.List;
 
 public class NoteListActivity extends AppCompatActivity {
 
-    private ArrayAdapter<NoteInfo> mAdapterNotes;
+    //private ArrayAdapter<NoteInfo> mAdapterNotes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_note_list);
+        setContentView(R.layout.content_note_list);
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
@@ -35,10 +37,14 @@ public class NoteListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mAdapterNotes.notifyDataSetChanged();
+        //mAdapterNotes.notifyDataSetChanged();
     }
 
     private void initializeDisplayContent() {
+        final RecyclerView recyclerNotes = (RecyclerView) findViewById(R.id.list_notes);
+        final LinearLayoutManager notesLayoutManager = new LinearLayoutManager(this);
+        recyclerNotes.setLayoutManager(notesLayoutManager);
+/*
         final ListView listNotes = findViewById(R.id.list_notes);
         List<NoteInfo> notes = DataManager.getInstance().getNotes();
         mAdapterNotes = new ArrayAdapter<NoteInfo>(this, android.R.layout.simple_list_item_1, notes);
@@ -51,6 +57,7 @@ public class NoteListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+*/
     }
 }
 
