@@ -24,12 +24,12 @@ public class NoteListActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+/*        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(NoteListActivity.this, NoteActivity.class));
+                //startActivity(new Intent(NoteListActivity.this, NoteActivity.class));
             }
-        });
+        });*/
 
         initializeDisplayContent();
     }
@@ -44,6 +44,9 @@ public class NoteListActivity extends AppCompatActivity {
         final RecyclerView recyclerNotes = (RecyclerView) findViewById(R.id.list_notes);
         final LinearLayoutManager notesLayoutManager = new LinearLayoutManager(this);
         recyclerNotes.setLayoutManager(notesLayoutManager);
+        List<NoteInfo> notes = DataManager.getInstance().getNotes();
+        final NoteRecyclerAdapter noteRecyclerAdapter = new NoteRecyclerAdapter(this, notes);
+        recyclerNotes.setAdapter(noteRecyclerAdapter);
 /*
         final ListView listNotes = findViewById(R.id.list_notes);
         List<NoteInfo> notes = DataManager.getInstance().getNotes();
