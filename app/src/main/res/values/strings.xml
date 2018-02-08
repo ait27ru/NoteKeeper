@@ -14,4 +14,9 @@
     <string name="note_text_hint">Note text</string>
     <string name="nav_share_message">Share</string>
     <string name="nav_send_message">Send</string>
+    <string name="nav_notes_title">Notes</string>
+    <string name="nav_courses_title">Courses</string>
+    <string name="nav_share_title">Share</string>
+    <string name="nav_send_title">Send</string>
+    <string name="nav_communicate_title">Communicate</string>
 </resources>

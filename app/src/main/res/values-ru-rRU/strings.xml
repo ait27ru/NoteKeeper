@@ -10,4 +10,11 @@
     <string name="note_text_hint">Текст заметки</string>
     <string name="navigation_drawer_close">Закрыть каталог</string>
     <string name="navigation_drawer_open">Открыть каталог</string>
+    <string name="nav_share_message">Поделиться</string>
+    <string name="nav_send_message">Отправить</string>
+    <string name="nav_notes_title">Заметки</string>
+    <string name="nav_courses_title">Курсы</string>
+    <string name="nav_share_title">Поделиться</string>
+    <string name="nav_send_title">Отправить</string>
+    <string name="nav_communicate_title">Общение</string>
 </resources>
