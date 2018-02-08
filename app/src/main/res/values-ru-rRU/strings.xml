@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NoteKeeper</string>
+    <string name="action_send_mail">Отправить по эл. почте</string>
+    <string name="title_activity_note">Редактирование заметки</string>
+    <string name="action_cancel">Отменить</string>
+    <string name="action_next">След.</string>
+    <string name="action_settings">Настройки</string>
+    <string name="note_title_hint">Заголовок заметки</string>
+    <string name="note_text_hint">Текст заметки</string>
+    <string name="navigation_drawer_close">Закрыть каталог</string>
+    <string name="navigation_drawer_open">Открыть каталог</string>
+</resources>
