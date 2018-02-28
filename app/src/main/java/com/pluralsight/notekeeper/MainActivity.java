@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.pluralsight.notekeeper.NoteKeeperDatabaseContract.CourseInfoEntry;
 import com.pluralsight.notekeeper.NoteKeeperDatabaseContract.NoteInfoEntry;
 
 import java.util.List;
@@ -123,8 +124,8 @@ public class MainActivity extends AppCompatActivity
 
         mNoteRecyclerAdapter = new NoteRecyclerAdapter(this, null);
 
-        List<CourseInfo> courses = DataManager.getInstance().getCourses();
-        mCourseRecyclerAdapter = new CourseRecyclerAdapter(this, courses);
+//        List<CourseInfo> courses = DataManager.getInstance().getCourses();
+//        mCourseRecyclerAdapter = new CourseRecyclerAdapter(this, courses);
 
         displayNotes();
 /*
@@ -238,14 +239,23 @@ public class MainActivity extends AppCompatActivity
                 public Cursor loadInBackground() {
                     SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
                     final String[] notesColumns = {
-                            NoteInfoEntry._ID,
+                            NoteInfoEntry.getQName(NoteInfoEntry._ID),
                             NoteInfoEntry.COLUMN_NOTE_TITLE,
-                            NoteInfoEntry.COLUMN_COURSE_ID
+                            CourseInfoEntry.COLUMN_COURSE_TITLE
                     };
-                    final String noteOrderBy = NoteInfoEntry.COLUMN_COURSE_ID +
+
+                    String tablesWithJoin = NoteInfoEntry.TABLE_NAME + " JOIN " +
+                            CourseInfoEntry.TABLE_NAME + " ON " +
+                            NoteInfoEntry.getQName(NoteInfoEntry.COLUMN_COURSE_ID) + " = " +
+                            CourseInfoEntry.getQName(CourseInfoEntry.COLUMN_COURSE_ID);
+
+                    final String noteOrderBy = CourseInfoEntry.COLUMN_COURSE_TITLE +
                             "," + NoteInfoEntry.COLUMN_NOTE_TITLE;
-                    return db.query(NoteInfoEntry.TABLE_NAME, notesColumns,
+
+                    Cursor res = db.query(tablesWithJoin, notesColumns,
                             null, null, null, null, noteOrderBy);
+
+                    return res;
                 }
             };
         }
