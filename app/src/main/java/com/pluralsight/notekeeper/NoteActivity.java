@@ -260,12 +260,29 @@ public class NoteActivity extends AppCompatActivity
     }
 
     private void createNewNote() {
+
+        AsyncTask<ContentValues, Void, Uri> task = new AsyncTask<ContentValues, Void, Uri>() {
+            @Override
+            protected Uri doInBackground(ContentValues... contentValues) {
+                ContentValues insertValues = contentValues[0];
+                Uri rowUri = getContentResolver().insert(Notes.CONTENT_URI, insertValues);
+                return rowUri;
+            }
+
+            @Override
+            protected void onPostExecute(Uri uri) {
+                mNoteUri = uri;
+            }
+        };
+
         ContentValues values = new ContentValues();
         values.put(Notes.COLUMN_COURSE_ID, "");
         values.put(Notes.COLUMN_NOTE_TITLE, "");
         values.put(Notes.COLUMN_NOTE_TEXT, "");
 
-        mNoteUri = getContentResolver().insert(Notes.CONTENT_URI, values);
+        //mNoteUri = getContentResolver().insert(Notes.CONTENT_URI, values);
+
+        task.execute(values);
     }
 
     @Override
