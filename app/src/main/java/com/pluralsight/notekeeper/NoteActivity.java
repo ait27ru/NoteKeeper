@@ -16,7 +16,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 
@@ -261,17 +263,41 @@ public class NoteActivity extends AppCompatActivity
 
     private void createNewNote() {
 
-        AsyncTask<ContentValues, Void, Uri> task = new AsyncTask<ContentValues, Void, Uri>() {
+        AsyncTask<ContentValues, Integer, Uri> task = new AsyncTask<ContentValues, Integer, Uri>() {
+            private ProgressBar mProgressBar;
+
+
+            @Override
+            protected void onPreExecute() {
+                mProgressBar = findViewById(R.id.progress_bar);
+                mProgressBar.setVisibility(View.VISIBLE);
+                mProgressBar.setProgress(1);
+            }
+
             @Override
             protected Uri doInBackground(ContentValues... contentValues) {
+                Log.d(TAG, "doInBackground - thread: " + Thread.currentThread().getId());
                 ContentValues insertValues = contentValues[0];
                 Uri rowUri = getContentResolver().insert(Notes.CONTENT_URI, insertValues);
+                simulateLongRunningWork();
+                publishProgress(2);
+                simulateLongRunningWork();
+                publishProgress(3);
                 return rowUri;
             }
 
             @Override
+            protected void onProgressUpdate(Integer... values) {
+                int progressValue = values[0];
+                mProgressBar.setProgress(progressValue);
+            }
+
+            @Override
             protected void onPostExecute(Uri uri) {
+                Log.d(TAG, "onPostExecute - thread: " + Thread.currentThread().getId());
                 mNoteUri = uri;
+                mProgressBar.setVisibility(View.GONE);
+
             }
         };
 
@@ -282,7 +308,16 @@ public class NoteActivity extends AppCompatActivity
 
         //mNoteUri = getContentResolver().insert(Notes.CONTENT_URI, values);
 
+        Log.d(TAG, "Call to execute - thread: " + Thread.currentThread().getId());
         task.execute(values);
+    }
+
+    private void simulateLongRunningWork() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
