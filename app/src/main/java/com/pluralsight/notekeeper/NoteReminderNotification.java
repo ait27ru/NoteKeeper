@@ -56,6 +56,9 @@ public class NoteReminderNotification {
         final String text = res.getString(
                 R.string.note_reminder_notification_placeholder_text_template, exampleString);
 
+        Intent backupServiceIntent = new Intent(context, NoteBackupService.class);
+        backupServiceIntent.putExtra(NoteBackupService.EXTRA_COURSE_ID, NoteBackup.ALL_COURSES);
+
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
 
                 // Set appropriate defaults for the notification light, sound,
@@ -102,6 +105,16 @@ public class NoteReminderNotification {
                                 0,
                                 new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com")),
                                 PendingIntent.FLAG_UPDATE_CURRENT))
+                .addAction(
+                        0,
+                        "Backup notes",
+                        PendingIntent.getService(
+                                context,
+                                0,
+                                backupServiceIntent,
+                                PendingIntent.FLAG_UPDATE_CURRENT
+                        )
+                )
 
                 // Automatically dismiss the notification when it is touched.
                 .setAutoCancel(true);
