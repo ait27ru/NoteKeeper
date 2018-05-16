@@ -47,7 +47,12 @@
 
         <service
             android:name=".NoteBackupService"
-            android:exported="false"></service>
+            android:exported="false" />
+        <service
+            android:name=".NoteUploaderJobService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permissions.BIND_JOB_SERVICE"></service>
     </application>
 
 </manifest>

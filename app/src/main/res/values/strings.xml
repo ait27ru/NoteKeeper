@@ -120,4 +120,5 @@
         tortor.
     </string>
     <string name="action_backup_notes">Backup notes</string>
+    <string name="action_upload_notes">Upload notes</string>
 </resources>
