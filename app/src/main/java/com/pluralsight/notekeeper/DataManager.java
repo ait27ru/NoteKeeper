@@ -25,8 +25,8 @@ public class DataManager {
     public static DataManager getInstance() {
         if (ourInstance == null) {
             ourInstance = new DataManager();
-            //ourInstance.initializeCourses();
-            //ourInstance.initializeExampleNotes();
+            ourInstance.initializeCourses();
+            ourInstance.initializeExampleNotes();
         }
         return ourInstance;
     }

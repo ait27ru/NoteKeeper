@@ -42,7 +42,9 @@ public class NoteReminderNotification {
      * @see #cancel(Context)
      */
     public static void notify(final Context context,
-                              final String exampleString, final int number) {
+                              final String noteTitle,
+                              final String noteText,
+                              final int noteId) {
         final Resources res = context.getResources();
 
         // This image is used as the notification's large icon (thumbnail).
@@ -50,11 +52,11 @@ public class NoteReminderNotification {
         final Bitmap picture = BitmapFactory.decodeResource(res, R.drawable.example_picture);
 
 
-        final String ticker = exampleString;
+        final String ticker = noteTitle;
         final String title = res.getString(
-                R.string.note_reminder_notification_title_template, exampleString);
+                R.string.note_reminder_notification_title_template, noteTitle);
         final String text = res.getString(
-                R.string.note_reminder_notification_placeholder_text_template, exampleString);
+                R.string.note_reminder_notification_placeholder_text_template, noteTitle);
 
         Intent backupServiceIntent = new Intent(context, NoteBackupService.class);
         backupServiceIntent.putExtra(NoteBackupService.EXTRA_COURSE_ID, NoteBackup.ALL_COURSES);
@@ -84,9 +86,9 @@ public class NoteReminderNotification {
                 // Set ticker text (preview) information for this notification.
                 .setTicker(ticker)
 
-                // Show a number. This is useful when stacking notifications of
+                // Show a noteId. This is useful when stacking notifications of
                 // a single type.
-                .setNumber(number)
+                .setNumber(noteId)
 
                 // If this notification relates to a past or upcoming event, you
                 // should set the relevant time information using the setWhen
