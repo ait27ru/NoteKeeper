@@ -31,6 +31,11 @@ public class DataManager {
         return ourInstance;
     }
 
+    /**
+      * Load data from database using {@link SQLiteDatabase}
+      * @param dbHelper helper to create query
+      */
+
     public static void loadFromDatabase(NoteKeeperOpenHelper dbHelper) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
